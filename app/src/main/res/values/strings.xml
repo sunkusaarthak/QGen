@@ -16,4 +16,7 @@
     <string name="_12">12</string>
     <string name="_sign">+</string>
     <string name="_9">9</string>
+    <string name="name">Name:</string>
+    <string name="Class">Class:</string>
+    <string name="date">Date:</string>
 </resources>

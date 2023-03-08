@@ -1,18 +1,13 @@
 package com.appc.qgen
-import android.app.Activity
+
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputLayout
 import kotlin.concurrent.thread
@@ -25,44 +20,57 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.hide()
 
         //Variables for the actual data
-        var firstNumLowerRange = "";var firstNumUpperRange = ""
-        var secondNumLowerRange = "";var secondNumUpperRange = ""
+        var firstNumLowerRange = "";
+        var firstNumUpperRange = ""
+        var secondNumLowerRange = "";
+        var secondNumUpperRange = ""
         var operationVal = ""
         var orientationVal = ""
         var maxNumVal: String
-        var colNumVal = "";var rowNumVal = ""
-        val numCollection : MutableSet<Pair<Int, Int>> = mutableSetOf()
-        val firstNumbers : ArrayList<Int> = ArrayList()
-        val secondNumbers : ArrayList<Int> = ArrayList()
+        var colNumVal = "";
+        var rowNumVal = ""
+        val numCollection: MutableSet<Pair<Int, Int>> = mutableSetOf()
+        val firstNumbers: ArrayList<Int> = ArrayList()
+        val secondNumbers: ArrayList<Int> = ArrayList()
 
         //objects of the views
-        val spinnerFirstNum1 : AutoCompleteTextView = findViewById(R.id.fill_item1)
-        val spinnerFirstNum2 : AutoCompleteTextView = findViewById(R.id.fill_item2)
-        val spinnerSecondNum1 : AutoCompleteTextView = findViewById(R.id.fill_item_second_1)
-        val spinnerSecondNum2 : AutoCompleteTextView = findViewById(R.id.fill_item_second_2)
-        val operationSpinner : AutoCompleteTextView = findViewById(R.id.operations)
-        val orientationSpinner : AutoCompleteTextView = findViewById(R.id.format)
-        val colNum : AutoCompleteTextView = findViewById(R.id.colSelect)
-        val rowNum : AutoCompleteTextView = findViewById(R.id.rowSelect)
-        val maxEditTextLayout : TextInputLayout = findViewById(R.id.maximumEditText)
-        val maxEditText : EditText? = maxEditTextLayout.editText
-        val generateButton : Button = findViewById(R.id.generateButton)
+        val spinnerFirstNum1: AutoCompleteTextView = findViewById(R.id.fill_item1)
+        val spinnerFirstNum2: AutoCompleteTextView = findViewById(R.id.fill_item2)
+        val spinnerSecondNum1: AutoCompleteTextView = findViewById(R.id.fill_item_second_1)
+        val spinnerSecondNum2: AutoCompleteTextView = findViewById(R.id.fill_item_second_2)
+        val operationSpinner: AutoCompleteTextView = findViewById(R.id.operations)
+        val orientationSpinner: AutoCompleteTextView = findViewById(R.id.format)
+        val colNum: AutoCompleteTextView = findViewById(R.id.colSelect)
+        val rowNum: AutoCompleteTextView = findViewById(R.id.rowSelect)
+        val maxEditTextLayout: TextInputLayout = findViewById(R.id.maximumEditText)
+        val maxEditText: EditText? = maxEditTextLayout.editText
+        val generateButton: Button = findViewById(R.id.generateButton)
 
         //Data for the Spinners
-        val listNumbers : ArrayList<String> = arrayListOf("1", "2", "3", "4", "5", "6", "7", "8", "9")
-        val operationData : ArrayList<String> = arrayListOf("Addition +", "Subtraction -", "Multiplication *", "Divide /")
-        val orientationData : ArrayList<String> = arrayListOf("Vertical", "Horizontal")
-        val colNumData : ArrayList<String> = arrayListOf("1", "2", "3")
+        val listNumbers: ArrayList<String> =
+            arrayListOf("1", "2", "3", "4", "5", "6", "7", "8", "9")
+        val operationData: ArrayList<String> =
+            arrayListOf("Addition +", "Subtraction -", "Multiplication *", "Divide /")
+        val orientationData: ArrayList<String> = arrayListOf("Vertical", "Horizontal")
+        val colNumData: ArrayList<String> = arrayListOf("1", "2", "3")
 
         //Adapters for the Spinners
-        val spinnerFirstNum1dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, R.layout.drop_down_item, listNumbers)
-        val spinnerFirstNum2dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, R.layout.drop_down_item, listNumbers)
-        val spinnerSecondNum1dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, R.layout.drop_down_item, listNumbers)
-        val spinnerSecondNum2dataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, R.layout.drop_down_item, listNumbers)
-        val rowNumDataAdapter: ArrayAdapter<String> = ArrayAdapter<String>(this, R.layout.drop_down_item, listNumbers)
-        val operationAdapter : ArrayAdapter<String> = ArrayAdapter<String>(this, R.layout.drop_down_item, operationData)
-        val orientationAdapter : ArrayAdapter<String> = ArrayAdapter<String>(this, R.layout.drop_down_item, orientationData)
-        val colNumAdapter : ArrayAdapter<String> = ArrayAdapter(this, R.layout.drop_down_item, colNumData)
+        val spinnerFirstNum1dataAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, R.layout.drop_down_item, listNumbers)
+        val spinnerFirstNum2dataAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, R.layout.drop_down_item, listNumbers)
+        val spinnerSecondNum1dataAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, R.layout.drop_down_item, listNumbers)
+        val spinnerSecondNum2dataAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, R.layout.drop_down_item, listNumbers)
+        val rowNumDataAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, R.layout.drop_down_item, listNumbers)
+        val operationAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, R.layout.drop_down_item, operationData)
+        val orientationAdapter: ArrayAdapter<String> =
+            ArrayAdapter<String>(this, R.layout.drop_down_item, orientationData)
+        val colNumAdapter: ArrayAdapter<String> =
+            ArrayAdapter(this, R.layout.drop_down_item, colNumData)
 
         //setting the adapter for the spinners
         spinnerFirstNum1.setAdapter(spinnerFirstNum1dataAdapter)
@@ -116,82 +124,84 @@ class MainActivity : AppCompatActivity() {
         generateButton.setOnClickListener {
             maxNumVal = maxEditText?.text.toString()
 
-            if(firstNumLowerRange.isEmpty()) {
+            if (firstNumLowerRange.isEmpty()) {
                 spinnerFirstNum1.error = "Field cannot be left blank."
                 return@setOnClickListener
             }
-            if(firstNumUpperRange.isEmpty()) {
+            if (firstNumUpperRange.isEmpty()) {
                 spinnerFirstNum2.error = "Field cannot be left blank."
                 return@setOnClickListener
             }
-            if(secondNumLowerRange.isEmpty()) {
+            if (secondNumLowerRange.isEmpty()) {
                 spinnerSecondNum1.error = "Field cannot be left blank."
                 return@setOnClickListener
             }
-            if(secondNumUpperRange.isEmpty()) {
+            if (secondNumUpperRange.isEmpty()) {
                 spinnerSecondNum2.error = "Field cannot be left blank."
                 return@setOnClickListener
             }
-            if(operationVal.isEmpty()) {
+            if (operationVal.isEmpty()) {
                 operationSpinner.error = "Field cannot be left blank."
                 return@setOnClickListener
             }
-            if(orientationVal.isEmpty()) {
+            if (orientationVal.isEmpty()) {
                 orientationSpinner.error = "Field cannot be left blank."
                 return@setOnClickListener
             }
-            if(colNumVal.isEmpty()) {
+            if (colNumVal.isEmpty()) {
                 colNum.error = "Field cannot be left blank."
                 return@setOnClickListener
             }
-            if(rowNumVal.isEmpty()) {
+            if (rowNumVal.isEmpty()) {
                 rowNum.error = "Field cannot be left blank."
                 return@setOnClickListener
             }
-            if(maxNumVal.isNotEmpty()) {
-                if(!checkAllDigits(maxNumVal)) {
+            if (maxNumVal.isNotEmpty()) {
+                if (!checkAllDigits(maxNumVal)) {
                     maxEditText?.error = "please type digits"
                     return@setOnClickListener
                 }
             }
 
-            if(firstNumLowerRange > firstNumUpperRange) {
-                Toast.makeText(this, "max should be greater in first number", Toast.LENGTH_SHORT).show()
+            if (firstNumLowerRange > firstNumUpperRange) {
+                Toast.makeText(this, "max should be greater in first number", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
-            if(secondNumLowerRange > secondNumUpperRange) {
-                Toast.makeText(this, "max should be greater in second number", Toast.LENGTH_SHORT).show()
+            if (secondNumLowerRange > secondNumUpperRange) {
+                Toast.makeText(this, "max should be greater in second number", Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
 
-            val  maxNumInInt : Int
-            val fMin : Int = Integer.parseInt(firstNumLowerRange)
-            val fMax : Int = Integer.parseInt(firstNumUpperRange)
-            val sMin : Int = Integer.parseInt(secondNumLowerRange)
-            val sMax : Int = Integer.parseInt(secondNumUpperRange)
-            val cNum : Int = Integer.parseInt(colNumVal)
-            val rNum : Int = Integer.parseInt(rowNumVal)
+            val maxNumInInt: Int
+            val fMin: Int = Integer.parseInt(firstNumLowerRange)
+            val fMax: Int = Integer.parseInt(firstNumUpperRange)
+            val sMin: Int = Integer.parseInt(secondNumLowerRange)
+            val sMax: Int = Integer.parseInt(secondNumUpperRange)
+            val cNum: Int = Integer.parseInt(colNumVal)
+            val rNum: Int = Integer.parseInt(rowNumVal)
             val totalCell = cNum * rNum
-            var extractedMaxVal : Int = when(operationVal) {
+            var extractedMaxVal: Int = when (operationVal) {
                 "0" -> (fMax + sMax)
                 "1" -> (fMax.coerceAtLeast(sMax) - fMin.coerceAtMost(sMin))
                 "2" -> (fMax * sMax)
                 "3" -> (fMax.coerceAtLeast(sMax) / fMin.coerceAtMost(sMin))
                 else -> 0
             }
-            if(maxNumVal.isNotEmpty()) {
-                maxNumInInt =  Integer.parseInt(maxNumVal)
-                when(operationVal) {
+            if (maxNumVal.isNotEmpty()) {
+                maxNumInInt = Integer.parseInt(maxNumVal)
+                when (operationVal) {
                     "0" -> {
-                        if(extractedMaxVal < maxNumInInt) {
+                        if (extractedMaxVal < maxNumInInt) {
                             Toast.makeText(this, "change maximum", Toast.LENGTH_SHORT).show()
                             return@setOnClickListener
                         }
                     }
 
                     "1" -> {
-                        if(extractedMaxVal < maxNumInInt) {
+                        if (extractedMaxVal < maxNumInInt) {
                             Toast.makeText(this, "change maximum", Toast.LENGTH_SHORT).show()
                             return@setOnClickListener
                         }
@@ -199,14 +209,14 @@ class MainActivity : AppCompatActivity() {
 
                     "2" -> {
                         extractedMaxVal = (fMax * sMax)
-                        if(extractedMaxVal < maxNumInInt) {
+                        if (extractedMaxVal < maxNumInInt) {
                             Toast.makeText(this, "change maximum", Toast.LENGTH_SHORT).show()
                             return@setOnClickListener
                         }
                     }
 
                     "3" -> {
-                        if(extractedMaxVal < maxNumInInt) {
+                        if (extractedMaxVal < maxNumInInt) {
                             Toast.makeText(this, "change maximum", Toast.LENGTH_SHORT).show()
                             return@setOnClickListener
                         }
@@ -222,8 +232,7 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                 }
-            }
-            else {
+            } else {
                 maxNumInInt = extractedMaxVal
             }
 
@@ -234,7 +243,7 @@ class MainActivity : AppCompatActivity() {
                         firstNumbers.clear()
                         secondNumbers.clear()
                         numCollection.clear()
-                        for (maxNumIntDec in 1 .. maxNumInInt) {
+                        for (maxNumIntDec in 1..maxNumInInt) {
                             if (count >= totalCell) {
                                 break
                             }
@@ -253,11 +262,14 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         }
-                        Log.d("TestSet", "$firstNumbers \n $secondNumbers" + "$firstNumLowerRange $firstNumUpperRange " +
-                                "$secondNumLowerRange $secondNumUpperRange " +
-                                "$operationVal $orientationVal " +
-                                "$colNumVal $rowNumVal " +
-                                maxNumVal)
+                        Log.d(
+                            "TestSet",
+                            "$firstNumbers \n $secondNumbers" + "$firstNumLowerRange $firstNumUpperRange " +
+                                    "$secondNumLowerRange $secondNumUpperRange " +
+                                    "$operationVal $orientationVal " +
+                                    "$colNumVal $rowNumVal " +
+                                    maxNumVal
+                        )
                     }
 
                     "1" -> {
@@ -265,7 +277,7 @@ class MainActivity : AppCompatActivity() {
                         firstNumbers.clear()
                         secondNumbers.clear()
                         numCollection.clear()
-                        for (maxNumIntDec in 1 .. maxNumInInt) {
+                        for (maxNumIntDec in 1..maxNumInInt) {
                             if (count >= totalCell) {
                                 break
                             }
@@ -284,11 +296,14 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         }
-                        Log.d("TestSet", "$firstNumbers \n $secondNumbers" + "$firstNumLowerRange $firstNumUpperRange " +
-                                "$secondNumLowerRange $secondNumUpperRange " +
-                                "$operationVal $orientationVal " +
-                                "$colNumVal $rowNumVal " +
-                                maxNumVal)
+                        Log.d(
+                            "TestSet",
+                            "$firstNumbers \n $secondNumbers" + "$firstNumLowerRange $firstNumUpperRange " +
+                                    "$secondNumLowerRange $secondNumUpperRange " +
+                                    "$operationVal $orientationVal " +
+                                    "$colNumVal $rowNumVal " +
+                                    maxNumVal
+                        )
                     }
 
                     "2" -> {
@@ -296,19 +311,19 @@ class MainActivity : AppCompatActivity() {
                         firstNumbers.clear()
                         secondNumbers.clear()
                         numCollection.clear()
-                        for (maxNumIntDec in 1 .. maxNumInInt) {
+                        for (maxNumIntDec in 1..maxNumInInt) {
                             if (count >= totalCell) {
                                 break
                             }
                             for (i in fMin..fMax) {
-                                val calc : Int
-                                if(maxNumIntDec % i == 0) {
-                                    calc = (maxNumIntDec/i)
+                                val calc: Int
+                                if (maxNumIntDec % i == 0) {
+                                    calc = (maxNumIntDec / i)
                                     if (count >= totalCell) {
                                         break
                                     }
                                     if (calc in sMin..sMax) {
-                                        if (numCollection.find {it == Pair(i, calc)} == null) {
+                                        if (numCollection.find { it == Pair(i, calc) } == null) {
                                             firstNumbers.add(i)
                                             secondNumbers.add(calc)
                                             numCollection.add(Pair(i, calc))
@@ -326,17 +341,16 @@ class MainActivity : AppCompatActivity() {
                         firstNumbers.clear()
                         secondNumbers.clear()
                         numCollection.clear()
-                        for(i in fMin .. fMax) {
-                            for(calc in sMin .. sMax) {
-                                if(i/calc <= maxNumInInt) {
+                        for (i in fMin..fMax) {
+                            for (calc in sMin..sMax) {
+                                if (i / calc <= maxNumInInt) {
                                     if (numCollection.find { it == Pair(i, calc) } == null) {
                                         firstNumbers.add(i)
                                         secondNumbers.add(calc)
                                         numCollection.add(Pair(i, calc))
                                         count++
                                     }
-                                }
-                                else if(calc/i <= maxNumInInt) {
+                                } else if (calc / i <= maxNumInInt) {
                                     if (numCollection.find { it == Pair(calc, i) } == null) {
                                         firstNumbers.add(calc)
                                         secondNumbers.add(i)
@@ -349,7 +363,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                val opSign : String = when(operationVal) {
+                val opSign: String = when (operationVal) {
                     "0" -> "+"
                     "1" -> "-"
                     "2" -> "*"
@@ -370,12 +384,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun checkAllDigits(maxNumVal: String): Boolean {
         val ch = maxNumVal.toCharArray()
-        for(i in ch) {
-            if(i !in '0'..'9') {
-                return(false)
+        for (i in ch) {
+            if (i !in '0'..'9') {
+                return (false)
             }
         }
-        return(true)
+        return (true)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
