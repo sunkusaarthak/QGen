@@ -1,7 +1,6 @@
-# Basic Arithmetic Questions Generator
+# Basic Arithmetic Questions Generator - QGen
 ## Introduction
 Basic Arithmetic Questions Generator is an offline Android application that generates arithmetic questions for users. The questions include two numbers with a range that can be specified by the user, and the operation can be selected from four basic operations: addition, subtraction, multiplication, and division. The application is based on Material 3 design language, Kotlin, and XML.
-
 ## Features
 Generate arithmetic questions with two numbers
 Customize the range of two numbers
@@ -9,6 +8,13 @@ Choose the operation for the questions
 Select between two basic layouts: vertical and horizontal
 Set max value for the result of any question generated
 Generate questions with a specified number of rows and columns
+## Screenshots
+### Horizontal Layout
+| ![photo_2023-02-14_16-50-24](https://user-images.githubusercontent.com/59611699/223653137-d6159fd3-0913-4185-83b2-5751ad9a1824.png) | ![photo_2023-02-14_16-50-22](https://user-images.githubusercontent.com/59611699/223653129-8f8e4e7f-94f8-4f3f-8499-ef153ce78fe3.png) | ![photo_2023-02-14_16-50-21](https://user-images.githubusercontent.com/59611699/223655455-6a64cc9b-b870-4b20-bdd8-f724bee4ee70.png) |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+### Vertical Layout
+| ![photo_2023-02-14_16-50-24](https://user-images.githubusercontent.com/59611699/223655031-e90d6ff4-e8da-4fa8-96a2-d465edd4c7ad.png) | ![photo_2023-02-14_16-50-22](https://user-images.githubusercontent.com/59611699/223655047-e31d62bb-c64c-4ed5-90f6-b42913bdab62.png) | ![photo_2023-02-14_16-50-21](https://user-images.githubusercontent.com/59611699/223653093-d9400da8-925a-4ce9-a10f-0aca9e42a6a2.png) |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
 ## Installation
 1. Clone the repository to your local machine.
 2. Open the project in Android Studio.
