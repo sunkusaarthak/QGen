@@ -333,7 +333,14 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         }
-                        Log.d("TestSet", "$firstNumbers \n $secondNumbers")
+                        Log.d(
+                            "TestSet",
+                            "$firstNumbers \n $secondNumbers" + "$firstNumLowerRange $firstNumUpperRange " +
+                                    "$secondNumLowerRange $secondNumUpperRange " +
+                                    "$operationVal $orientationVal " +
+                                    "$colNumVal $rowNumVal " +
+                                    maxNumVal
+                        )
                     }
 
                     "3" -> {
@@ -360,6 +367,14 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
                         }
+                        Log.d(
+                            "TestSet",
+                            "$firstNumbers \n $secondNumbers" + "$firstNumLowerRange $firstNumUpperRange " +
+                                    "$secondNumLowerRange $secondNumUpperRange " +
+                                    "$operationVal $orientationVal " +
+                                    "$colNumVal $rowNumVal " +
+                                    maxNumVal
+                        )
                     }
                 }
 
