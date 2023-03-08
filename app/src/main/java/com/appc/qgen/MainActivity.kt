@@ -349,7 +349,13 @@ class MainActivity : AppCompatActivity() {
                         secondNumbers.clear()
                         numCollection.clear()
                         for (i in fMin..fMax) {
+                            if (count >= totalCell) {
+                                break
+                            }
                             for (calc in sMin..sMax) {
+                                if (count >= totalCell) {
+                                    break
+                                }
                                 if (i / calc <= maxNumInInt) {
                                     if (numCollection.find { it == Pair(i, calc) } == null) {
                                         firstNumbers.add(i)
