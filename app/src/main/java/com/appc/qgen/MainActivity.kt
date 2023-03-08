@@ -1,8 +1,11 @@
 package com.appc.qgen
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doAfterTextChanged
@@ -239,6 +242,7 @@ class MainActivity : AppCompatActivity() {
                         var count = 0
                         firstNumbers.clear()
                         secondNumbers.clear()
+                        numCollection.clear()
                         for (maxNumIntDec in 1..maxNumInInt) {
                             if (count >= totalCell) {
                                 break
@@ -272,6 +276,7 @@ class MainActivity : AppCompatActivity() {
                         var count = 0
                         firstNumbers.clear()
                         secondNumbers.clear()
+                        numCollection.clear()
                         for (maxNumIntDec in 1..maxNumInInt) {
                             if (count >= totalCell) {
                                 break
@@ -305,6 +310,7 @@ class MainActivity : AppCompatActivity() {
                         var count = 0
                         firstNumbers.clear()
                         secondNumbers.clear()
+                        numCollection.clear()
                         for (maxNumIntDec in 1..maxNumInInt) {
                             if (count >= totalCell) {
                                 break
@@ -338,7 +344,43 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     "3" -> {
-
+                        var count = 0
+                        firstNumbers.clear()
+                        secondNumbers.clear()
+                        numCollection.clear()
+                        for (i in fMin..fMax) {
+                            if (count >= totalCell) {
+                                break
+                            }
+                            for (calc in sMin..sMax) {
+                                if (count >= totalCell) {
+                                    break
+                                }
+                                if (i / calc <= maxNumInInt) {
+                                    if (numCollection.find { it == Pair(i, calc) } == null) {
+                                        firstNumbers.add(i)
+                                        secondNumbers.add(calc)
+                                        numCollection.add(Pair(i, calc))
+                                        count++
+                                    }
+                                } else if (calc / i <= maxNumInInt) {
+                                    if (numCollection.find { it == Pair(calc, i) } == null) {
+                                        firstNumbers.add(calc)
+                                        secondNumbers.add(i)
+                                        numCollection.add(Pair(calc, i))
+                                        count++
+                                    }
+                                }
+                            }
+                        }
+                        Log.d(
+                            "TestSet",
+                            "$firstNumbers \n $secondNumbers" + "$firstNumLowerRange $firstNumUpperRange " +
+                                    "$secondNumLowerRange $secondNumUpperRange " +
+                                    "$operationVal $orientationVal " +
+                                    "$colNumVal $rowNumVal " +
+                                    maxNumVal
+                        )
                     }
                 }
 
@@ -369,5 +411,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return (true)
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

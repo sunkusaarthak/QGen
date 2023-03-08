@@ -14,19 +14,19 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="16dp"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="16dp">
 
         <LinearLayout
             android:id="@+id/linearLayoutOuter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
+            android:gravity="end"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="right"
+                android:gravity="end"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -39,17 +39,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_marginBottom="10dp"
-                        android:text="+"
+                        android:text="@string/_sign"
                         android:textSize="46sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="8dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="8dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -58,8 +58,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:gravity="right"
-                        android:text="12"
+                        android:gravity="end"
+                        android:text="@string/_12"
                         android:textSize="46sp" />
 
                     <TextView
@@ -68,8 +68,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:gravity="right"
-                        android:text="9"
+                        android:gravity="end"
+                        android:text="@string/_9"
                         android:textSize="46sp" />
                 </LinearLayout>
             </LinearLayout>

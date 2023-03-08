@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="2"
-            android:gravity="left"
-            android:text="Name: "
+            android:gravity="start"
+            android:text="@string/name"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -30,8 +30,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="left"
-            android:text="Class: "
+            android:gravity="start"
+            android:text="@string/Class"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -40,8 +40,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="left"
-            android:text="Date: "
+            android:gravity="start"
+            android:text="@string/date"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
