@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">Q Gen</string>
     <string name="first_number_range">First Number Range</string>
+    <string name="min">Min</string>
+    <string name="second_number_range">Second Number Range</string>
+    <string name="max">Max</string>
+    <string name="select_operation">Select Operation</string>
+    <string name="operation">Operation</string>
+    <string name="orientation">Orientation</string>
+    <string name="layout_format">Layout Format</string>
+    <string name="col">Col</string>
+    <string name="row">Row</string>
+    <string name="select_maximum">Select Maximum</string>
+    <string name="type_a_maximum">Type a Maximum</string>
+    <string name="generate">Generate</string>
+    <string name="_12">12</string>
+    <string name="_sign">+</string>
+    <string name="_9">9</string>
 </resources>
